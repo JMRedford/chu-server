@@ -117,3 +117,9 @@ def game_route(user_name):
                     return "waiting on opponent to read your last move"
     else:
         return "ERROR: game does not exist"
+
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
