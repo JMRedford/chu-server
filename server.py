@@ -177,11 +177,10 @@ def join_route():
             </tr>
             """.format(white_user, black_user)
 
-    ret_string += """
-    </table>
-    """
-    return ret_string
-
+        ret_string += """
+        </table>
+        """
+        return ret_string
 
     else:
         return "ERROR: POST is not supported on this endpoint"
