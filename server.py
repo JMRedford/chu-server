@@ -154,7 +154,7 @@ def game_route(user_name):
         return "ERROR: game does not exist"
 
 @app.route('/list', methods=['GET'])
-def join_route():
+def list_route():
     if request.method == 'GET':
         ret_string = """
         <table style="width:100%">
