@@ -47,6 +47,19 @@ def join_game(user_name):
         return "ERROR: username is already associated with a game"
 
 
+def end_game(user_name):
+    global games
+
+    if user_name not in games.keys():
+        return "No game associated with " + user_name
+    else:
+        game = games[user_name]
+        users = game.players
+        for user in users:
+            del games[user]
+        return "Game deleted"
+
+
 @app.route('/join', methods=['GET', 'POST'])
 def join_route():
     if request.method == 'POST':
@@ -69,6 +82,27 @@ def join_route():
             return "ready to play"
         else:
             return "waiting on player"
+
+@app.route('/end/<user_name>', methods=['POST'])
+def end_route():
+    if request.method == 'POST':
+        form_data = request.get_json()
+        try:
+            if form_data['key'] == 'chu-client':
+                if 'user' in form_data.keys():
+                    username = form_data['user']
+                    return end_game(username)
+                else:
+                    return "ERROR: user name not provided ('user' key missing in POST data)"
+            else:
+                return "ERROR: invalid client key"
+        except KeyError:
+            return "ERROR: missing client key"
+        except TypeError:
+            return "ERROR: missing form data"
+    else:
+        return "ERROR: GET request not supported on this endpoint"
+
 
 
 @app.route('/game/<user_name>', methods=['GET', 'POST'])
