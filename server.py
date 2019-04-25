@@ -153,6 +153,39 @@ def game_route(user_name):
     else:
         return "ERROR: game does not exist"
 
+@app.route('/list', methods=['GET'])
+def join_route():
+    if request.method == 'GET':
+        ret_string = """
+        <table style="width:100%">
+          <tr>
+            <th>White</th>
+            <th>Black</th> 
+          </tr>      
+        """
+        gameset = {i for i in []}
+        for username, game in games:
+            gameset.add(game)
+
+        for game in gameset:
+            white_user = game.players[0]
+            black_user = '' if len(game.players) == 1 else game.players[1]
+            ret_string += """
+            <tr>
+                <td>{}</td>
+                <td>{}</td>
+            </tr>
+            """.format(white_user, black_user)
+
+    ret_string += """
+    </table>
+    """
+    return ret_string
+
+
+    else:
+        return "ERROR: POST is not supported on this endpoint"
+
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
