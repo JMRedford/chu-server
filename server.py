@@ -164,7 +164,7 @@ def list_route():
           </tr>      
         """
         gameset = {i for i in []}
-        for username, game in games:
+        for username, game in games.items():
             gameset.add(game)
 
         for game in gameset:
