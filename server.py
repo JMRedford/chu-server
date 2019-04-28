@@ -83,8 +83,8 @@ def join_route():
         else:
             return "waiting on player"
 
-@app.route('/end/<user_name>', methods=['POST'])
-def end_route():
+@app.route('/end/<user_name>', methods=['GET', 'POST'])
+def end_route(user_name):
     if request.method == 'POST':
         form_data = request.get_json()
         try:
@@ -101,7 +101,7 @@ def end_route():
         except TypeError:
             return "ERROR: missing form data"
     else:
-        return "ERROR: GET request not supported on this endpoint"
+        return end_game(user_name)
 
 
 
