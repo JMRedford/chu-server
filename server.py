@@ -103,7 +103,10 @@ def end_route(user_name):
     else:
         return end_game(user_name)
 
-
+@app.route('end_all', methods=['GET'])
+def end_all_route():
+    for user_name in games.keys():
+        end_game(user_name)
 
 @app.route('/game/<user_name>', methods=['GET', 'POST'])
 def game_route(user_name):
